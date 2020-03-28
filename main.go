@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
 	"gitlab.com/shizzuru/redlights/internal/redlight"
 )
 
@@ -20,4 +22,10 @@ func main() {
 		fmt.Printf("%v\n", redlight.ColorState(r, time.Now()))
 		time.Sleep(1 * time.Second)
 	}
+	g := gin.Default()
+	g.GET("/status", status)
+}
+
+func status(g *gin.Context) {
+
 }
