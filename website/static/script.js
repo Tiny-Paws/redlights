@@ -18,3 +18,9 @@ greenlight = new Vue({
         color: "green"
     }
 })
+
+function getStatus() {
+    axios.get("http://localhost:5600/status").then(function(response) {
+        console.log(response);
+    });
+}

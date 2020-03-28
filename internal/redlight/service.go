@@ -14,7 +14,7 @@ func (r *Redlight) SetPattern(pattern ColorPattern) {
 	r.pattern = pattern
 }
 
-// Pattern is a debug func
-func (r *Redlight) Pattern() ColorPattern {
-	return r.pattern
-}
+// // Pattern is a debug func
+// func (r *Redlight) Pattern() ColorPattern {
+// 	return r.pattern
+// }

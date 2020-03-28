@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -17,15 +17,20 @@ func main() {
 		[]int{redlight.Orange, 3},
 		[]int{redlight.Orange | redlight.Red, 1},
 	})
-	fmt.Printf("%v", r.Pattern())
-	for {
-		fmt.Printf("%v\n", redlight.ColorState(r, time.Now()))
-		time.Sleep(1 * time.Second)
-	}
+	gin.SetMode(gin.DebugMode)
 	g := gin.Default()
-	g.GET("/status", status)
-}
+	g.GET("/status", func(g *gin.Context) {
+		g.JSON(http.StatusOK, gin.H{
+			"state": redlight.ColorState(r, time.Now()),
+		})
+	})
+	go func() {
+		err := g.Run(":5600")
+		if err != nil {
+			panic(err)
+		}
+	}()
 
-func status(g *gin.Context) {
-
+	http.Handle("/", http.FileServer(http.Dir("website")))
+	http.ListenAndServe(":8080", nil)
 }
