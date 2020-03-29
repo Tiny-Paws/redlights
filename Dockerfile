@@ -1,4 +1,4 @@
-FROM golang:1.14.1-alpine
+FROM golang
 
 WORKDIR /go/src/app
 COPY . .
@@ -8,5 +8,5 @@ RUN go install -v ./...
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-COPY --from=0 /go/src/app/bin/app .
+COPY --from=0 /go/bin/app .
 CMD ["./app"]
