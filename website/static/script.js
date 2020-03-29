@@ -1,21 +1,21 @@
 redlight = new Vue({
     el: "#red",
     data: {
-        color: "red"
+        color: "off"
     }
 })
 
 orangelight = new Vue({
     el: "#orange",
     data: {
-        color: "orange"
+        color: "off"
     }
 })
 
 greenlight = new Vue({
     el: "#green",
     data: {
-        color: "green"
+        color: "off"
     }
 })
 
@@ -28,6 +28,10 @@ function updateLightStatus() {
         redlight.color = computeColorPresence(red, response.data.state) ? "red" : "off";
         orangelight.color = computeColorPresence(orange, response.data.state) ? "orange" : "off";
         greenlight.color = computeColorPresence(green, response.data.state) ? "green" : "off";
+    }).catch(function(error) {
+        redlight.color = "off";
+        orangelight.color = "off";
+        greenlight.color = "off";
     });
 }
 

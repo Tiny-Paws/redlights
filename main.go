@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-
 	"gitlab.com/shizzuru/redlights/internal/redlight"
 )
 
@@ -15,7 +14,7 @@ func main() {
 		[]int{redlight.Red, 15},
 		[]int{redlight.Green, 8},
 		[]int{redlight.Orange, 3},
-		[]int{redlight.Orange | redlight.Red, 1},
+		// []int{redlight.Orange | redlight.Red, 1},
 	})
 	gin.SetMode(gin.ReleaseMode)
 	g := gin.Default()
