@@ -17,9 +17,10 @@ func main() {
 		[]int{redlight.Orange, 3},
 		[]int{redlight.Orange | redlight.Red, 1},
 	})
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 	g := gin.Default()
 	g.GET("/status", func(g *gin.Context) {
+		g.Header("Access-Control-Allow-Origin", "*")
 		g.JSON(http.StatusOK, gin.H{
 			"state": redlight.ColorState(r, time.Now()),
 		})
@@ -31,6 +32,11 @@ func main() {
 		}
 	}()
 
-	http.Handle("/", http.FileServer(http.Dir("website")))
+	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	//r.Header.Set("Access-Control-Allow-Origin", "*")
+	http.FileServer(http.Dir("website")).ServeHTTP(w, r)
 }
