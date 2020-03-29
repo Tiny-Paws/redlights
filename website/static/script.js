@@ -24,7 +24,8 @@ const orange = 2;
 const green = 4;
 
 function updateLightStatus() {
-    axios.get("http://localhost:5600/status").then(function(response) {
+    let hs = window.location.hostname
+    axios.get("http://"+hs+":5600/status").then(function(response) {
         redlight.color = computeColorPresence(red, response.data.state) ? "red" : "off";
         orangelight.color = computeColorPresence(orange, response.data.state) ? "orange" : "off";
         greenlight.color = computeColorPresence(green, response.data.state) ? "green" : "off";
