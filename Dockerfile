@@ -1,6 +1,7 @@
-FROM golang
+FROM golang:alpine
 
 WORKDIR /go/src/app
+RUN apk --no-cache add build-base git bzr mercurial gcc
 COPY . .
 RUN go get -d -v ./...
 RUN go install -v ./...
