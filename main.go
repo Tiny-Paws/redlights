@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.com/shizzuru/redlights/public/redlight"
+	"gitlab.com/shizzuru/redlights/pkg/redlight"
 )
 
 func main() {
