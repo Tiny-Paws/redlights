@@ -27,6 +27,7 @@ import (
 	"time"
 )
 
+// Broker handles streaming data to the clients
 type Broker struct {
 
 	// Events are pushed to this channel by the main events-gathering routine
@@ -42,6 +43,7 @@ type Broker struct {
 	clients map[chan []byte]bool
 }
 
+// NewServer returns an instance of Broker
 func NewServer() (broker *Broker) {
 	// Instantiate a broker
 	broker = &Broker{
@@ -125,7 +127,7 @@ func (broker *Broker) listen() {
 
 			// We got a new event from the outside!
 			// Send event to all connected clients
-			for clientMessageChan, _ := range broker.clients {
+			for clientMessageChan := range broker.clients {
 				clientMessageChan <- event
 			}
 		}
