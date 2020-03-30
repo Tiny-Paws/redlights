@@ -28,10 +28,14 @@ format:
     - go vet $(go list ./... | grep -v /vendor/)
     - go test -race $(go list ./... | grep -v /vendor/)
 
-compile:
+build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     # - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/main
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/redlights/redlights:latest .
-    - docker push $CI_REGISTRY/redlights/redlights:latest
+    - docker login -u shizzuru -p $REGISTRY_API_KEY "registry.gitlab.com"
+    - docker build -t registry.gitlab.com/shizzuru/redlights/redlights:latest .
+    - docker push registry.gitlab.com/shizzuru/redlights/redlights:latest
+  needs: ["test"]
