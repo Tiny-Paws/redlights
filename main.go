@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"gitlab.com/shizzuru/redlights/pkg/sse"
+
 	"gitlab.com/shizzuru/redlights/pkg/redlight"
 )
 
@@ -16,22 +18,21 @@ func main() {
 		[]int{redlight.Orange, 3},
 		// []int{redlight.Orange | redlight.Red, 1},
 	})
-	gin.SetMode(gin.ReleaseMode)
-	g := gin.Default()
-	g.GET("/status", func(g *gin.Context) {
-		g.Header("Access-Control-Allow-Origin", "*")
-		g.JSON(http.StatusOK, gin.H{
-			"state": redlight.ColorState(r, time.Now()),
-		})
-	})
+
+	broker := sse.NewServer()
+
 	go func() {
-		err := g.Run(":5600")
-		if err != nil {
-			panic(err)
+		for {
+			time.Sleep(time.Millisecond * 100)
+			yup := map[string]int{
+				"state": redlight.ColorState(r, time.Now()),
+			}
+			a, _ := json.Marshal(&yup)
+			broker.Notifier <- []byte(a)
 		}
 	}()
-
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/status", broker.ServeHTTP)
 	http.ListenAndServe(":8080", nil)
 }
 
