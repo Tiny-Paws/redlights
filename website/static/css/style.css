@@ -22,7 +22,7 @@ div.redlight {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
+    height: 70vh;
     width: 20em;
     background-color: rgba(40, 44, 44, 1);
     justify-content: center;
