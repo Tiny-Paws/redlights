@@ -22,8 +22,7 @@ div.redlight {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 50vh;
-    max-height: 40em;
+    height: 80vh;
     width: 20em;
     background-color: rgba(40, 44, 44, 1);
     justify-content: center;
@@ -64,7 +63,7 @@ div.green {
 
 div.pole {
     height: 100%;
-    grow-flex: 1;
+    flex-grow: 1;
     height: 12em;
     width: 5em;
     margin: auto;
