@@ -4,6 +4,12 @@ body {
     background-size: 400% 400%;
     animation: colorchange 30s ease infinite;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+html,body{
+    height:100%;
 }
 
 @keyframes colorchange {
@@ -16,13 +22,15 @@ div.redlight {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 40em;
+    height: 80vh;
     width: 20em;
     background-color: rgba(40, 44, 44, 1);
     justify-content: center;
     margin: auto;
     margin-top: 10vh;
     border-radius: 20px;
+    margin-bottom:0px;
+    padding-bottom:5vh;
 }
 
 div.light {
@@ -30,7 +38,7 @@ div.light {
     width: 11em;
     background-color: rgb(80, 79, 79);
     border-radius: 50%;
-    margin-bottom: 1em;
+    margin-top: 5vh;
 }
 
 div.off {
@@ -54,8 +62,11 @@ div.green {
 }
 
 div.pole {
+    height: 100%;
+    grow-flex: 1;
     height: 12em;
     width: 5em;
     margin: auto;
+    margin-top:-2px;
     background-color: rgba(40, 44, 44, 1);;
 }
