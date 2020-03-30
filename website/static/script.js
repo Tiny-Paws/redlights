@@ -37,7 +37,7 @@ function updateLightStatus() {
 }
 
 function computeColorPresence(color, apidata) {
-    return (color & apidata) == color
+    return (color & apidata) == color;
 }
 
-setInterval(updateLightStatus, 500)
+setInterval(updateLightStatus, 500);
