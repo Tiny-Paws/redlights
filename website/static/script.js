@@ -22,22 +22,19 @@ greenlight = new Vue({
 const red = 1;
 const orange = 2;
 const green = 4;
+const hs = window.location.hostname
 
-function updateLightStatus() {
-    let hs = window.location.hostname
-    axios.get("http://"+hs+":5600/status").then(function(response) {
-        redlight.color = computeColorPresence(red, response.data.state) ? "red" : "off";
-        orangelight.color = computeColorPresence(orange, response.data.state) ? "orange" : "off";
-        greenlight.color = computeColorPresence(green, response.data.state) ? "green" : "off";
-    }).catch(function(error) {
-        redlight.color = "off";
-        orangelight.color = "off";
-        greenlight.color = "off";
-    });
+function updateLightStatus(data) {
+    redlight.color = computeColorPresence(red, data) ? "red" : "off";
+    orangelight.color = computeColorPresence(orange, data) ? "orange" : "off";
+    greenlight.color = computeColorPresence(green, data) ? "green" : "off";
 }
 
 function computeColorPresence(color, apidata) {
-    return (color & apidata) == color
+    return (color & apidata) == color;
 }
 
-setInterval(updateLightStatus, 500)
+e = new EventSource('/status');
+e.onmessage = function(event) {
+    updateLightStatus(JSON.parse(event.data).state);
+};
